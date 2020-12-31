@@ -84,7 +84,7 @@ class MyTableWidget(QWidget):
 
     def btn_clk(self):
         val = hx.get_weight(5)
-        L = np.append(val)
+        np.append(L, val)
 
         self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
 
