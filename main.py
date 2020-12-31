@@ -1,0 +1,95 @@
+import sys
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import pyqtSlot
+import pyqtgraph as pg
+
+class App(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        self.title = 'Alarge Coefficient of Friction Tester'
+        self.left = 0
+        self.top = 0
+        self.width = 800
+        self.height = 480
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+
+        self.table_widget = MyTableWidget(self)
+        self.setCentralWidget(self.table_widget)
+
+        self.show()
+
+
+class MyTableWidget(QWidget):
+
+    def __init__(self, parent):
+        super(QWidget, self).__init__(parent)
+        self.layout = QVBoxLayout(self)
+
+        # Initialize tab screen
+        self.tabs = QTabWidget()
+        self.tab1 = QWidget()
+        self.tab2 = QWidget()
+        self.tabs.resize(300, 200)
+
+        # Add tabs
+        self.tabs.addTab(self.tab1, "Main Menu")
+        self.tabs.addTab(self.tab2, "Test")
+
+        # Create first tab
+        self.tab1.layout = QVBoxLayout(self)
+        self.pushButton1 = QPushButton("PyQt5 button")
+        self.tab1.layout.addWidget(self.pushButton1)
+        self.tab1.setLayout(self.tab1.layout)
+
+        # Create second tab
+        self.tab2.layout = QVBoxLayout(self)
+        self.pushButton2 = QPushButton("Start the test")
+        # Set Plotter
+        pg.setConfigOption('background', 'w')
+        pg.setConfigOption('foreground', 'k')
+
+        self.graphicsView = pg.PlotWidget(title="")
+        self.tab2.layout.addWidget(self.pushButton2)
+        self.tab2.setLayout(self.tab2.layout)
+        self.tab2.layout.addWidget(self.graphicsView)
+        self.layout.addWidget(self.tabs)
+        self.setLayout(self.layout)
+        self.pushButton2.clicked.connect(self.btn_clk) # plot when clicked
+
+    def btn_clk(self):
+        L = [1, 2, 3, 4, 5]
+
+        self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
+
+
+
+
+       # Add tabs to widget
+
+
+
+    @pyqtSlot()
+    def on_click(self):
+        print("\n")
+        for currentQTableWidgetItem in self.tableWidget.selectedItems():
+            print(currentQTableWidgetItem.row(), currentQTableWidgetItem.column(), currentQTableWidgetItem.text())
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = App()
+    sys.exit(app.exec_())
+
+    """
+            # Add plot to second tab
+            self.graphicsView = pg.PlotWidget()
+            self.tab2.layout = QVBoxLayout(self)
+            self.graphicsView.setObjectName("graphicsView")
+            self.tab2.layout.addWidget(self.graphicsView)
+            self.pushButton2 = QPushButton("Plot that shit")
+
+            self.pushButton2.clicked.connect(self.btn_clk)
+    """
