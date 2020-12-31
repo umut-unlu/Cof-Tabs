@@ -10,33 +10,33 @@ if grep -q splash /boot/cmdline.txt
 then
 	echo ' '
 else
-	echo 'splash' >> /boot/cmdline.txt
+	sed -i '$s/$/ splash/' /boot/cmdline.txt
 fi
 
 if grep -q quiet /boot/cmdline.txt
 then
 	echo ' '
 else
-	echo 'quiet' >> /boot/cmdline.txt
+	sed -i '$s/$/ quiet/' /boot/cmdline.txt
 fi
 
 if grep -q plymouth.ignore-serial-consoles /boot/cmdline.txt
 then
 	echo ' '
 else
-	echo 'plymouth.ignore-serial-consoles' >> /boot/cmdline.txt
+	sed -i '$s/$/ plymouth.ignore-serial-consoles/' /boot/cmdline.txt
 fi
 
 if grep -q logo.nologo /boot/cmdline.txt
 then
 	echo ' '
 else
-	echo 'logo.nologo' >> /boot/cmdline.txt
+	sed -i '$s/$/ logo.nologo/' /boot/cmdline.txt
 fi
 
 if grep -q vt.global_cursor_default=0 /boot/cmdline.txt
 then
 	echo ' '
 else
-	echo 'vt.global_cursor_default=0' >> /boot/cmdline.txt
+	sed -i '$s/$/ vt.global_cursor_default=0/' /boot/cmdline.txt
 fi
