@@ -40,3 +40,5 @@ then
 else
 	sed -i '$s/$/ vt.global_cursor_default=0/' /boot/cmdline.txt
 fi
+
+sudo cp ./logo.png /usr/share/plymouth/themes/pix/splash.png
