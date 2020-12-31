@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAc
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 import pyqtgraph as pg
+import numpy as np
 # pyqt 5.11.3
 
 import RPi.GPIO as GPIO
@@ -14,6 +15,7 @@ hx.set_reading_format("MSB", "MSB")
 hx.reset()
 hx.tare()
 
+L = np.zeros(1)
 #import force_read as f_r
 
 class App(QMainWindow):
@@ -81,7 +83,7 @@ class MyTableWidget(QWidget):
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
     def btn_clk(self):
-        L = [1, 2, 3, 4, 5]
+        L = np.append(hx.get_weight(5))
 
         self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
 
