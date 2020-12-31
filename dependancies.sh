@@ -4,4 +4,4 @@
 sudo apt install python3-pyqt5=5.11.3 -y
 sudo apt install python3-pip -y
 
-pip install pyqtgraph
+pip3 install pyqtgraph

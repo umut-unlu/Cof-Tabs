@@ -4,7 +4,18 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 import pyqtgraph as pg
 # pyqt 5.11.3
-#
+
+import RPi.GPIO as GPIO
+from hx711 import HX711
+
+# set up the load cell
+hx = HX711(5, 6)
+hx.set_reading_format("MSB", "MSB")
+hx.reset()
+hx.tare()
+
+#import force_read as f_r
+
 class App(QMainWindow):
 
     def __init__(self):
@@ -48,25 +59,39 @@ class MyTableWidget(QWidget):
         # Create second tab
         self.tab2.layout = QVBoxLayout(self)
         self.pushButton2 = QPushButton("Start the test")
+        self.pushButtonTare = QPushButton("Tare")
+        self.pushButtonWeight = QPushButton("Weight")
+
         # Set Plotter
         pg.setConfigOption('background', 'w')
         pg.setConfigOption('foreground', 'k')
 
         self.graphicsView = pg.PlotWidget(title="")
         self.tab2.layout.addWidget(self.pushButton2)
+        self.tab2.layout.addWidget(self.pushButtonTare)
+        self.tab2.layout.addWidget(self.pushButtonWeight)
+
         self.tab2.setLayout(self.tab2.layout)
         self.tab2.layout.addWidget(self.graphicsView)
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
+
         self.pushButton2.clicked.connect(self.btn_clk) # plot when clicked
+        self.pushButtonTare.clicked.connect(self.btn_tare) # tare when clicked
+        self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
     def btn_clk(self):
         L = [1, 2, 3, 4, 5]
 
         self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
 
+    def btn_tare(self):
+        hx.tare()
 
+    def btn_weight(self):
+        val = hx.get_weight(5)
 
+        print(val)
 
        # Add tabs to widget
 
