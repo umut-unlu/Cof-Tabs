@@ -83,7 +83,8 @@ class MyTableWidget(QWidget):
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
     def btn_clk(self):
-        L = np.append(hx.get_weight(5))
+        val = hx.get_weight(5)
+        L = np.append(val)
 
         self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
 
