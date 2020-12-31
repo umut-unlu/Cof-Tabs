@@ -43,4 +43,4 @@ fi
 
 sudo cp ./logo.png /usr/share/plymouth/themes/pix/splash.png
 
-pcmanfm --set-wallpaper="~/Cof-Tabs/logo.png"
+#pcmanfm --set-wallpaper="~/Cof-Tabs/logo.png"
