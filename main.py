@@ -110,9 +110,11 @@ class MyTableWidget(QWidget):
         print(val)
 
     def update_plot(self):
-        self.x.append(hx.get_weight(5))
-        self.y.append(0.05)
+        val = hx.get_weight(5)
 
+        self.x.append(val)
+        self.y.append(0.05)
+        print(val)
         self.data_line.setData(self.x, self.y)
        # Add tabs to widget
 
