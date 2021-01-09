@@ -1,7 +1,9 @@
 import sys
+import os
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
+from  PyQt5 import QtCore
 import pyqtgraph as pg
 import numpy as np
 # pyqt 5.11.3
@@ -78,9 +80,18 @@ class MyTableWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
 
+        self.data_line = self.graphicsView.plot(self.x, self.y, pen=pen)
+        # button events
         self.pushButton2.clicked.connect(self.btn_clk) # plot when clicked
         self.pushButtonTare.clicked.connect(self.btn_tare) # tare when clicked
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
+
+        # timer set and update plot
+        self.timer = QtCore.QTimer()
+        self.timer.setInterval(50)
+        self.timer.timeout.connect(self.update_plot)
+        self.timer.start()
+
 
     def btn_clk(self):
         val = hx.get_weight(5)
@@ -96,8 +107,12 @@ class MyTableWidget(QWidget):
 
         print(val)
 
-       # Add tabs to widget
+    def update_plot(self):
+        self.x.append(hx.get_weight(5))
+        self.y.append(0.05)
 
+        self.data_line.setData(self.x, self.y)
+       # Add tabs to widget
 
 
     @pyqtSlot()
