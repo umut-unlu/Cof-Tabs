@@ -31,8 +31,7 @@ class App(QMainWindow):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
-        x = np.zeros(1)
-        y = np.zeros(1)
+
 
         self.table_widget = MyTableWidget(self)
         self.setCentralWidget(self.table_widget)
@@ -41,7 +40,8 @@ class App(QMainWindow):
 
 
 class MyTableWidget(QWidget):
-
+    x = np.zeros(1)
+    y = np.zeros(1)
     def __init__(self, parent):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
