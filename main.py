@@ -100,13 +100,7 @@ class MyTableWidget(QWidget):
     def stop_test(self):
         self.timer.stop()
 
-"""
-    def btn_clk(self):
-        val = hx.get_weight(5)
-        np.append(L, val)
 
-        self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
-"""
     def btn_tare(self):
         hx.tare()
 
@@ -145,4 +139,12 @@ if __name__ == '__main__':
             self.pushButtonStart = QPushButton("Plot that shit")
 
             self.pushButtonStart.clicked.connect(self.btn_clk)
+    """
+
+    """
+        def btn_clk(self):
+            val = hx.get_weight(5)
+            np.append(L, val)
+
+            self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
     """
