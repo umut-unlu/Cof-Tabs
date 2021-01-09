@@ -90,6 +90,8 @@ class MyTableWidget(QWidget):
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
         # timer set and update plot
+
+        hx.tare()
         self.timer = QtCore.QTimer()
         self.timer.setInterval(50)
         self.timer.timeout.connect(self.update_plot)
