@@ -40,12 +40,13 @@ class App(QMainWindow):
 
 
 class MyTableWidget(QWidget):
-    x = np.zeros(1)
-    y = np.zeros(1)
+
     def __init__(self, parent):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
 
+        self.x = [0]
+        self.y = [0]
         # Initialize tab screen
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
