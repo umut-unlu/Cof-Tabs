@@ -85,12 +85,12 @@ class MyTableWidget(QWidget):
         pen = pg.mkPen(color=(255, 0, 0))
         self.data_line = self.graphicsView.plot(self.x, self.y, pen=pen)
         # button events
-        self.pushButton2.clicked.connect(self.btn_clk) # plot when clicked
+        self.pushButton2.clicked.connect(self.start_test) # plot when clicked
         self.pushButtonTare.clicked.connect(self.btn_tare) # tare when clicked
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
         # timer set and update plot
-
+    def start_test(self):
         hx.tare()
         self.timer = QtCore.QTimer()
         self.timer.setInterval(50)
