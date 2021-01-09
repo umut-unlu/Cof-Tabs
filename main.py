@@ -5,7 +5,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 from  PyQt5 import QtCore
 import pyqtgraph as pg
-import numpy as np
+#import numpy as np
 # pyqt 5.11.3
 
 import RPi.GPIO as GPIO
@@ -16,7 +16,7 @@ hx = HX711(5, 6)
 hx.set_reading_format("MSB", "MSB")
 hx.reset()
 hx.tare()
-L = np.zeros(1)
+#L = np.zeros(1)
 #import force_read as f_r
 
 class App(QMainWindow):
@@ -65,8 +65,8 @@ class MyTableWidget(QWidget):
 
         # Create second tab
         self.tab2.layout = QVBoxLayout(self)
-        self.pushButton2 = QPushButton("Start the test")
-        self.pushButtonTare = QPushButton("Tare")
+        self.pushButtonStart = QPushButton("Start the test")
+        self.pushButtonStop = QPushButton("Stop the test")
         self.pushButtonWeight = QPushButton("Weight")
 
         # Set Plotter
@@ -74,8 +74,8 @@ class MyTableWidget(QWidget):
         pg.setConfigOption('foreground', 'k')
 
         self.graphicsView = pg.PlotWidget(title="")
-        self.tab2.layout.addWidget(self.pushButton2)
-        self.tab2.layout.addWidget(self.pushButtonTare)
+        self.tab2.layout.addWidget(self.pushButtonStart)
+        self.tab2.layout.addWidget(self.pushButtonStop)
         self.tab2.layout.addWidget(self.pushButtonWeight)
 
         self.tab2.setLayout(self.tab2.layout)
@@ -85,8 +85,8 @@ class MyTableWidget(QWidget):
         pen = pg.mkPen(color=(255, 0, 0))
         self.data_line = self.graphicsView.plot(self.x, self.y, pen=pen)
         # button events
-        self.pushButton2.clicked.connect(self.start_test) # plot when clicked
-        self.pushButtonTare.clicked.connect(self.btn_tare) # tare when clicked
+        self.pushButtonStart.clicked.connect(self.start_test) # plot when clicked
+        self.pushButtonStop.clicked.connect(self.stop_test) # tare when clicked
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
         # timer set and update plot
@@ -97,13 +97,16 @@ class MyTableWidget(QWidget):
         self.timer.timeout.connect(self.update_plot)
         self.timer.start()
 
+    def stop_test(self):
+        self.timer.stop()
 
+"""
     def btn_clk(self):
         val = hx.get_weight(5)
         np.append(L, val)
 
         self.graphicsView.plot(L, pen=pg.mkPen('r', width=3))  # this line plots red
-
+"""
     def btn_tare(self):
         hx.tare()
 
@@ -117,7 +120,6 @@ class MyTableWidget(QWidget):
 
         self.y.append(val)
         self.x.append(self.x[-1] + 0.05)
-        print(val)
         self.data_line.setData(self.x, self.y)
        # Add tabs to widget
 
@@ -140,7 +142,7 @@ if __name__ == '__main__':
             self.tab2.layout = QVBoxLayout(self)
             self.graphicsView.setObjectName("graphicsView")
             self.tab2.layout.addWidget(self.graphicsView)
-            self.pushButton2 = QPushButton("Plot that shit")
+            self.pushButtonStart = QPushButton("Plot that shit")
 
-            self.pushButton2.clicked.connect(self.btn_clk)
+            self.pushButtonStart.clicked.connect(self.btn_clk)
     """
