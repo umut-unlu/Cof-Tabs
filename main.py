@@ -16,7 +16,6 @@ hx = HX711(5, 6)
 hx.set_reading_format("MSB", "MSB")
 hx.reset()
 hx.tare()
-
 L = np.zeros(1)
 #import force_read as f_r
 
@@ -31,6 +30,9 @@ class App(QMainWindow):
         self.height = 480
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
+
+        x = np.zeros(1)
+        y = np.zeros(1)
 
         self.table_widget = MyTableWidget(self)
         self.setCentralWidget(self.table_widget)
