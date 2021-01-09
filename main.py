@@ -79,7 +79,7 @@ class MyTableWidget(QWidget):
         self.tab2.layout.addWidget(self.graphicsView)
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
-
+        pen = pg.mkPen(color=(255, 0, 0))
         self.data_line = self.graphicsView.plot(self.x, self.y, pen=pen)
         # button events
         self.pushButton2.clicked.connect(self.btn_clk) # plot when clicked
