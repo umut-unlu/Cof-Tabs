@@ -45,8 +45,8 @@ class MyTableWidget(QWidget):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
 
-        self.x = [0]
-        self.y = [0]
+        self.test_time = [0]
+        self.test_data = [0]
         # Initialize tab screen
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
@@ -73,7 +73,7 @@ class MyTableWidget(QWidget):
         pg.setConfigOption('background', 'w')
         pg.setConfigOption('foreground', 'k')
 
-        self.graphicsView = pg.PlotWidget(title="")
+        self.graphicsView = pg.PlotWidget(title="Coefficient of Friction Test")
         self.tab2.layout.addWidget(self.pushButtonStart)
         self.tab2.layout.addWidget(self.pushButtonStop)
         self.tab2.layout.addWidget(self.pushButtonWeight)
@@ -112,10 +112,9 @@ class MyTableWidget(QWidget):
     def update_plot(self):
         val = hx.get_weight(5)
 
-        self.y.append(val)
-        self.x.append(self.x[-1] + 0.05)
-        self.data_line.setData(self.x, self.y)
-       # Add tabs to widget
+        self.test_data.append(val)
+        self.test_time.append(self.x[-1] + 0.05)
+        self.data_line.setData(self.test_time, self.test_data)
 
 
     @pyqtSlot()
