@@ -10,7 +10,7 @@ CCW = 0
 class motor_driver:
 
     def __init__(self):
-        gpio.setmode(gpio.BCM)
+        #gpio.setmode(gpio.BCM)
         gpio.setup(DIR, gpio.OUT)
         gpio.setup(STEP, gpio.OUT)
         gpio.output(DIR, CW)
