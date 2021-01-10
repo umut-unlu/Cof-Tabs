@@ -20,9 +20,9 @@ try:
         gpio.output(DIR, CW)
         for x in range(400):
             gpio.output(STEP, gpio.HIGH)
-            sleep(.0100)
+            sleep(.0001)
             gpio.output(STEP, gpio.LOW)
-            sleep(.0100)
+            sleep(.0001)
 
         sleep(1)
         gpio.output(DIR, CCW)
