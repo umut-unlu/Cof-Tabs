@@ -7,12 +7,25 @@ STEP = 16
 CW = 1
 CCW = 0
 
+class motor_driver:
 
-gpio.setmode(gpio.BCM)
-gpio.setup(DIR, gpio.OUT)
-gpio.setup(STEP, gpio.OUT)
-gpio.output(DIR, CW)
+    def __init__(self):
+        gpio.setmode(gpio.BCM)
+        gpio.setup(DIR, gpio.OUT)
+        gpio.setup(STEP, gpio.OUT)
+        gpio.output(DIR, CW)
 
+    def motor_run(self, time, ticks, direction):
+
+        gpio.output(DIR, direction)
+        for x in range(ticks):
+            gpio.output(STEP, gpio.LOW)
+            sleep(time)
+            gpio.output(STEP, gpio.HIGH)
+            sleep(time)
+
+
+"""
 # Main body of code
 try:
     while True:
@@ -34,6 +47,8 @@ try:
 
 
 
+
 except KeyboardInterrupt:  # If there is a KeyboardInterrupt (when you press ctrl+c), exit the program and cleanup
     print("Cleaning up!")
     gpio.cleanup()
+"""

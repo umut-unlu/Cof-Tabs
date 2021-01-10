@@ -10,6 +10,7 @@ import pyqtgraph as pg
 
 import RPi.GPIO as GPIO
 from hx711 import HX711
+import motor_driver
 
 # set up the load cell
 hx = HX711(5, 6)
@@ -96,6 +97,8 @@ class MyTableWidget(QWidget):
         self.timer.setInterval(50)
         self.timer.timeout.connect(self.update_plot)
         self.timer.start()
+        md = motor_driver()
+        md.motor_run(0.001, 400, 1)
 
     def stop_test(self):
         self.timer.stop()
