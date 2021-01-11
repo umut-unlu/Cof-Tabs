@@ -110,7 +110,7 @@ class MyTableWidget(QWidget):
         # take every 5 calculation and calculate mean then print to plot
         val = hx.get_weight(5)
         self.filter_storage = self.filter_storage + val
-        if self.filter_counter % 5:
+        if (self.filter_counter % 5) == 0:
             self.filtered_value = self.filter_storage / 5
             self.filter_storage = 0
             self.update_plot(self.filtered_value)
