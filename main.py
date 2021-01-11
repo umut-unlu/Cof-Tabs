@@ -9,6 +9,7 @@ import pyqtgraph as pg
 # pyqt 5.11.3
 
 import RPi.GPIO as gpio
+gpio.setmode(gpio.BCM)
 from hx711 import HX711
 import motor_driver
 
