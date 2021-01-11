@@ -98,7 +98,7 @@ class MyTableWidget(QWidget):
         self.timer.timeout.connect(self.update_plot)
         self.timer.start()
         md = motor_driver.motor_driver()
-        md.motor_run(0.001, 400, 1)
+        md.motor_run(0.01, 400, 1)
 
 
     def stop_test(self):
