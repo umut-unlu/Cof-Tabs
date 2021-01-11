@@ -84,10 +84,10 @@ class MyTableWidget(QWidget):
         self.tab2.layout.addWidget(self.pushButtonStop)
         self.tab2.layout.addWidget(self.pushButtonWeight)
 
-        #self.tab2.setLayout(self.tab2.layout)
+        self.tab2.setLayout(self.tab2.layout)
         self.tab2.layout.addWidget(self.graphicsView)
         self.layout.addWidget(self.tabs)
-        #self.setLayout(self.layout)
+        self.setLayout(self.layout)
         pen = pg.mkPen(color=(255, 0, 0))
         self.data_line = self.graphicsView.plot(self.test_time, self.test_data, pen=pen)
         # button events
