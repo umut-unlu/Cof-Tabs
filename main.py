@@ -119,7 +119,7 @@ class MyTableWidget(QWidget):
         val = hx.get_weight(5)
 
         self.test_data.append(val)
-        self.test_time.append(self.x[-1] + 0.05)
+        self.test_time.append(self.x(-1) + 0.05)
         self.data_line.setData(self.test_time, self.test_data)
 
 
