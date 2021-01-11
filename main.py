@@ -8,7 +8,7 @@ import pyqtgraph as pg
 #import numpy as np
 # pyqt 5.11.3
 
-import RPi.GPIO as GPIO
+import RPi.GPIO as gpio
 from hx711 import HX711
 import motor_driver
 
@@ -102,6 +102,7 @@ class MyTableWidget(QWidget):
 
     def stop_test(self):
         self.timer.stop()
+        gpio.cleanup()
 
 
     def btn_tare(self):
