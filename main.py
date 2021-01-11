@@ -64,13 +64,13 @@ class MyTableWidget(QWidget):
         self.tabs.addTab(self.tab2, "Test")
 
         # Create first tab
-        self.tab1.layout = QVBoxLayout(self)
+        #self.tab1.layout = QVBoxLayout(self)
         self.pushButton1 = QPushButton("PyQt5 button")
         self.tab1.layout.addWidget(self.pushButton1)
         self.tab1.setLayout(self.tab1.layout)
 
         # Create second tab
-        self.tab2.layout = QVBoxLayout(self)
+        #self.tab2.layout = QVBoxLayout(self)
         self.pushButtonStart = QPushButton("Start the test")
         self.pushButtonStop = QPushButton("Stop the test")
         self.pushButtonWeight = QPushButton("Weight")
