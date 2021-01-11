@@ -100,7 +100,7 @@ class MyTableWidget(QWidget):
         hx.tare()
         self.timer = QtCore.QTimer()
         self.timer.setInterval(10)
-        self.timer.timeout.connect(self.update_plot)
+        self.timer.timeout.connect(self.filter_force)
         self.timer.start()
         #md = motor_driver.motor_driver()
         #md.run_standard_test()
@@ -108,7 +108,8 @@ class MyTableWidget(QWidget):
 
     def filter_force(self):
         # take every 5 calculation and calculate mean then print to plot
-        self.filter_storage = self.filter_storage + hx.get_weight(5)
+        val = hx.get_weight(5)
+        self.filter_storage = self.filter_storage + val
         if self.filter_counter % 5:
             self.filtered_value = self.filter_storage / 5
             self.filter_storage = 0
@@ -128,9 +129,9 @@ class MyTableWidget(QWidget):
 
         print(val)
 
-    def update_plot(self):
-        val = hx.get_weight(5)
-
+    def update_plot(self, val):
+        #val = hx.get_weight(5)
+        print(val)
         self.test_data.append(val)
         self.test_time.append(self.test_time[-1] + 0.05)
         self.data_line.setData(self.test_time, self.test_data)
