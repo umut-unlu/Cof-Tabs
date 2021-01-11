@@ -147,7 +147,6 @@ class MyTableWidget(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
-    gpio.cleanup()
     sys.exit(app.exec_())
 
     """
