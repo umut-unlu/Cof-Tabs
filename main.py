@@ -99,7 +99,7 @@ class MyTableWidget(QWidget):
     def start_test(self):
         hx.tare()
         self.timer = QtCore.QTimer()
-        self.timer.setInterval(10)
+        self.timer.setInterval(3)
         self.timer.timeout.connect(self.filter_force)
         self.timer.start()
         #md = motor_driver.motor_driver()
@@ -131,7 +131,7 @@ class MyTableWidget(QWidget):
 
     def update_plot(self, val):
         #val = hx.get_weight(5)
-        print(val)
+        #print(val)
         self.test_data.append(val)
         self.test_time.append(self.test_time[-1] + 0.05)
         self.data_line.setData(self.test_time, self.test_data)
