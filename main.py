@@ -64,13 +64,13 @@ class MyTableWidget(QWidget):
         self.tabs.addTab(self.tab2, "Test")
 
         # Create first tab
-        #self.tab1.layout = QVBoxLayout(self)
+        self.tab1.layout = QVBoxLayout(self)
         self.pushButton1 = QPushButton("PyQt5 button")
         self.tab1.layout.addWidget(self.pushButton1)
         self.tab1.setLayout(self.tab1.layout)
 
         # Create second tab
-        #self.tab2.layout = QVBoxLayout(self)
+        self.tab2.layout = QVBoxLayout(self)
         self.pushButtonStart = QPushButton("Start the test")
         self.pushButtonStop = QPushButton("Stop the test")
         self.pushButtonWeight = QPushButton("Weight")
@@ -100,7 +100,7 @@ class MyTableWidget(QWidget):
         hx.tare()
         self.timer = QtCore.QTimer()
         self.timer.setInterval(10)
-        self.timer.timeout.connect(self.filter_force)
+        self.timer.timeout.connect(self.update_plot)
         self.timer.start()
         #md = motor_driver.motor_driver()
         #md.run_standard_test()
@@ -128,10 +128,10 @@ class MyTableWidget(QWidget):
 
         print(val)
 
-    def update_plot(self, filtered_value):
-        #val = hx.get_weight(5)
+    def update_plot(self):
+        val = hx.get_weight(5)
 
-        self.test_data.append(filtered_value)
+        self.test_data.append(val)
         self.test_time.append(self.test_time[-1] + 0.05)
         self.data_line.setData(self.test_time, self.test_data)
 
