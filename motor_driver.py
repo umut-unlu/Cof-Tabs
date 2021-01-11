@@ -16,7 +16,8 @@ class motor_driver:
         gpio.output(DIR, CW)
 
     def run_standard_test(self):
-        self.motor_run(self.calculate_ticks(60, 100, 1))
+        time, ticks, direction = self.calculate_ticks(60, 100, 1)
+        self.motor_run(time, ticks, direction)
 
     def calculate_ticks(self, distance = 60, speed = 100, direction = 1):
         # speed decided in the standard ISO 8295 is 100mm/min
