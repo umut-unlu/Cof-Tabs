@@ -15,13 +15,23 @@ class motor_driver:
         gpio.setup(STEP, gpio.OUT)
         gpio.output(DIR, CW)
 
+    def run_standard_test(self):
+        self.motor_run(self.calculate_ticks(60, 100, 1))
+
     def calculate_ticks(self, distance = 60, speed = 100, direction = 1):
         # speed decided in the standard ISO 8295 is 100mm/min
         # travel distance decided by me is 60 mm
         # vida aralığı 2mm
-        # 1 tick
+        # 1 tick 1 derece olsa :D
+        # 180 tick 1 mm
+        # dakikada 100 mm için 18000 tick
+        # saniyede 300 tick
+        # 0.003 saniyede 1 tick
 
-
+        mm_per_tick = 180
+        # 60mm için 60*180 tick
+        ticks = speed * mm_per_tick
+        time = 1/(ticks/60) # 0.003
 
         return time, ticks, direction
     def motor_run(self, time, ticks, direction):
