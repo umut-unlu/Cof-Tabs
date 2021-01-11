@@ -18,6 +18,7 @@ hx = HX711(5, 6)
 hx.set_reading_format("MSB", "MSB")
 hx.reset()
 hx.tare()
+
 #L = np.zeros(1)
 #import force_read as f_r
 
@@ -34,7 +35,6 @@ class App(QMainWindow):
         self.setGeometry(self.left, self.top, self.width, self.height)
 
 
-
         self.table_widget = MyTableWidget(self)
         self.setCentralWidget(self.table_widget)
 
@@ -49,6 +49,10 @@ class MyTableWidget(QWidget):
 
         self.test_time = [0]
         self.test_data = [0]
+        self.filter_counter = 0
+        self.filter_storage = 0
+        self.filtered_value = 0
+
         # Initialize tab screen
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
@@ -95,12 +99,21 @@ class MyTableWidget(QWidget):
     def start_test(self):
         hx.tare()
         self.timer = QtCore.QTimer()
-        self.timer.setInterval(50)
-        self.timer.timeout.connect(self.update_plot)
+        self.timer.setInterval(10)
+        self.timer.timeout.connect(self.filter_force)
         self.timer.start()
-        md = motor_driver.motor_driver()
-        md.run_standard_test()
+        #md = motor_driver.motor_driver()
+        #md.run_standard_test()
         #md.motor_run(0.01, 400, 1)
+
+    def filter_force(self):
+        # take every 5 calculation and calculate mean then print to plot
+        self.filter_storage = self.filter_storage + hx.get_weight(5)
+        if self.filter_counter % 5:
+            self.filtered_value = self.filter_storage / 5
+            self.filter_storage = 0
+            self.update_plot(self.filtered_value)
+            self.filter_counter = 0
 
     def stop_test(self):
         self.timer.stop()
@@ -115,10 +128,10 @@ class MyTableWidget(QWidget):
 
         print(val)
 
-    def update_plot(self):
-        val = hx.get_weight(5)
+    def update_plot(self, filtered_value):
+        #val = hx.get_weight(5)
 
-        self.test_data.append(val)
+        self.test_data.append(filtered_value)
         self.test_time.append(self.test_time[-1] + 0.05)
         self.data_line.setData(self.test_time, self.test_data)
 
