@@ -100,6 +100,7 @@ class MyTableWidget(QWidget):
         md = motor_driver.motor_driver()
         md.motor_run(0.001, 400, 1)
 
+
     def stop_test(self):
         self.timer.stop()
         gpio.cleanup()
