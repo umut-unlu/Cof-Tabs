@@ -129,6 +129,7 @@ class MyTableWidget(QWidget):
         self.filter_force()
         if self.tick == 0:
             self.stop_test()
+        print(self.tick)
 
 
 
