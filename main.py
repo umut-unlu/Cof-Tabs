@@ -111,8 +111,8 @@ class MyTableWidget(QWidget):
         #md.motor_run(0.01, 400, 1)
         ttime, ticks, direction = self.md.calculate_ticks()
 
-        decorator = self.cof_test(ttime, ticks, direction)
-        self.timer.timeout.connect(lambda: decorator)
+        #decorator = self.cof_test(ttime, ticks, direction)
+        self.timer.timeout.connect(lambda: self.cof_test(ttime, ticks, direction))
         self.timer.start()
 
     def cof_test(self, ttime = 0.01, ticks = 400, direction = 1):
@@ -123,17 +123,18 @@ class MyTableWidget(QWidget):
         self.md.send_tick(ttime, direction)
 
         self.tick = self.tick - 1
+
         print(self.tick)
+
         if self.tick < 1:
             self.tick = 0
+
         self.filter_force()
+
         if self.tick == 0:
             self.stop_test()
-            print("stopped")
+
         print(self.tick)
-
-
-
 
 
 
