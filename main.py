@@ -103,7 +103,7 @@ class MyTableWidget(QWidget):
     def start_test(self):
         hx.tare()
         self.timer = QtCore.QTimer()
-        self.timer.setInterval(10)
+        self.timer.setInterval(50)
         #md = motor_driver.motor_driver()
         #md.enable_motor()
         #md.run_standard_test()
