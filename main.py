@@ -121,9 +121,10 @@ class MyTableWidget(QWidget):
 
         self.md.send_tick(ttime, direction)
         self.tick = self.tick - 1
-        self.update_plot(self.filter_force)
         if self.tick < 1:
             self.tick = 0
+        self.update_plot(self.filter_force)
+
 
 
 
