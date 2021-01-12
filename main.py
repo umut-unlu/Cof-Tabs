@@ -102,11 +102,13 @@ class MyTableWidget(QWidget):
         self.timer.setInterval(1)
         self.timer.timeout.connect(self.filter_force)
         self.timer.start()
-        #md = motor_driver.motor_driver()
+        md = motor_driver.motor_driver()
         #md.run_standard_test()
-        #md.motor_run(0.01, 400, 1)
+        md.motor_run(0.01, 400, 1)
 
     def filter_force(self):
+        # hx711 library already does that :(
+        # we need a better method for it and that will happen after an inspection of hx711 library
         # take every 5 calculation and calculate mean then print to plot
         val = hx.get_weight(1)
         self.filter_storage = self.filter_storage + val
