@@ -118,8 +118,7 @@ class MyTableWidget(QWidget):
         # counts down ticks
         if self.tick == 0:
             self.tick = ticks
-        else:
-            self.stop_test()
+
         self.md.send_tick(ttime, direction)
         self.tick = self.tick - 1
         self.update_plot(self.filter_force)
