@@ -96,7 +96,7 @@ class MyTableWidget(QWidget):
         self.pushButtonStop.clicked.connect(self.stop_test) # tare when clicked
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
-        md = motor_driver()
+        self.md = motor_driver()
         # timer set and update plot
         # integrate motor driving with QTtimer
         # motor driver can already calculate wait time and tick count
@@ -109,7 +109,7 @@ class MyTableWidget(QWidget):
         #md.run_standard_test()
 
         #md.motor_run(0.01, 400, 1)
-        ttime, ticks, direction = md.calculate_ticks()
+        ttime, ticks, direction = self.md.calculate_ticks()
 
         self.timer.timeout.connect(self.cof_test)
         self.timer.start()
@@ -120,7 +120,7 @@ class MyTableWidget(QWidget):
             self.tick = ticks
         else:
             self.stop_test()
-        md.send_tick(ttime, direction)
+        self.md.send_tick(ttime, direction)
         self.tick = self.tick - 1
         self.update_plot(self.filter_force)
         if self.tick < 1:
