@@ -126,6 +126,8 @@ class MyTableWidget(QWidget):
         if self.tick < 1:
             self.tick = 0
         self.filter_force()
+        if self.tick == 0:
+            self.timer.stop()
 
 
 
