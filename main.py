@@ -83,7 +83,7 @@ class MyTableWidget(QWidget):
 
         # Create third tab
         self.tab3.layout = QVBoxLayout(self)
-        self.cof = QtWidgets.Qlabel('test results')
+        self.cof = QtWidgets.QlineEdit('test results')
 
         # Set Plotter
         pg.setConfigOption('background', 'w')
