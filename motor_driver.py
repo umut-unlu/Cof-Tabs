@@ -43,6 +43,7 @@ class motor_driver:
             sleep(time)
             gpio.output(STEP, gpio.HIGH)
             sleep(time)
+        gpio.output(STEP, gpio.LOW)
     def enable_motor(self):
         gpio.output(EN, 0)
 
