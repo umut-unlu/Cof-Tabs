@@ -47,9 +47,9 @@ class motor_driver:
 
     def send_tick(self, time, direction):
         gpio.output(DIR, direction)
-        gpio.output(gpio.HIGH)
+        gpio.output(STEP, gpio.HIGH)
         sleep(time)
-        gpio.output(gpio.LOW)
+        gpio.output(STEP, gpio.LOW)
         sleep(time)
 
 
