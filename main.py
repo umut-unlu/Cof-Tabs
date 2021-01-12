@@ -120,7 +120,7 @@ class MyTableWidget(QWidget):
 
     def stop_test(self):
         self.timer.stop()
-        gpio.cleanup()
+        #gpio.cleanup()
 
 
     def btn_tare(self):
