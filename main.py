@@ -103,8 +103,10 @@ class MyTableWidget(QWidget):
         self.timer.timeout.connect(self.filter_force)
         self.timer.start()
         md = motor_driver.motor_driver()
+        md.enable_motor()
         #md.run_standard_test()
         md.motor_run(0.01, 400, 1)
+
 
     def filter_force(self):
         # hx711 library already does that :(
@@ -120,7 +122,7 @@ class MyTableWidget(QWidget):
 
     def stop_test(self):
         self.timer.stop()
-        #gpio.cleanup()
+        motor_driver.motor_driver.disable_motor()
 
 
     def btn_tare(self):
