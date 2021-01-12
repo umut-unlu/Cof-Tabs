@@ -11,7 +11,7 @@ import pyqtgraph as pg
 import RPi.GPIO as gpio
 gpio.setmode(gpio.BCM)
 from hx711 import HX711
-import motor_driver
+from motor_driver import motor_driver as md
 
 # set up the load cell
 hx = HX711(5, 6)
@@ -52,6 +52,7 @@ class MyTableWidget(QWidget):
         self.filter_counter = 0
         self.filter_storage = 0
         self.filtered_value = 0
+        self.tick = 0
 
         # Initialize tab screen
         self.tabs = QTabWidget()
@@ -96,16 +97,36 @@ class MyTableWidget(QWidget):
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
         # timer set and update plot
+        # integrate motor driving with QTtimer
+        # motor driver can already calculate wait time and tick count
     def start_test(self):
         hx.tare()
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1)
-        self.timer.timeout.connect(self.filter_force)
-        self.timer.start()
-        md = motor_driver.motor_driver()
+        #md = motor_driver.motor_driver()
         #md.enable_motor()
         #md.run_standard_test()
-        md.motor_run(0.01, 400, 1)
+
+        #md.motor_run(0.01, 400, 1)
+        ttime, ticks, direction = md.calculate_ticks()
+
+        self.timer.timeout.connect(self.cof_test)
+        self.timer.start()
+
+    def cof_test(self, ttime, ticks, direction):
+        # counts down ticks
+        if self.tick == 0:
+            self.tick = ticks
+        else:
+            self.stop_test()
+        md.send_tick(ttime, direction)
+        self.tick = self.tick - 1
+        self.update_plot(self.filter_force)
+        if self.tick < 1:
+            self.tick = 0
+
+
+
 
 
     def filter_force(self):

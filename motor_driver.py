@@ -44,11 +44,13 @@ class motor_driver:
             gpio.output(STEP, gpio.HIGH)
             sleep(time)
         gpio.output(STEP, gpio.LOW)
-    def enable_motor(self):
-        gpio.output(EN, 0)
 
-    def disable_motor(self):
-        gpio.output(EN, 1)
+    def send_tick(self, time, direction):
+        gpio.output(DIR, direction)
+        gpio.output(gpio.HIGH)
+        sleep(time)
+        gpio.output(gpio.LOW)
+        sleep(time)
 
 
 """
