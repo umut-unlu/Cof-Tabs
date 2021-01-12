@@ -123,7 +123,7 @@ class MyTableWidget(QWidget):
         self.tick = self.tick - 1
         if self.tick < 1:
             self.tick = 0
-        self.update_plot(self.filter_force)
+        self.filter_force()
 
 
 
@@ -141,6 +141,7 @@ class MyTableWidget(QWidget):
             self.filter_storage = 0
             self.update_plot(self.filtered_value)
             self.filter_counter = 0
+
 
     def stop_test(self):
         self.timer.stop()
