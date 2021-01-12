@@ -103,7 +103,7 @@ class MyTableWidget(QWidget):
         self.timer.timeout.connect(self.filter_force)
         self.timer.start()
         md = motor_driver.motor_driver()
-        md.enable_motor()
+        #md.enable_motor()
         #md.run_standard_test()
         md.motor_run(0.01, 400, 1)
 
@@ -122,7 +122,7 @@ class MyTableWidget(QWidget):
 
     def stop_test(self):
         self.timer.stop()
-        motor_driver.motor_driver.disable_motor()
+        #motor_driver.motor_driver.disable_motor()
 
 
     def btn_tare(self):
