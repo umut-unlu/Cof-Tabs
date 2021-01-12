@@ -1,14 +1,17 @@
 import sys
 import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, \
+    QHBoxLayout
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
-from  PyQt5 import QtCore
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
 import pyqtgraph as pg
-#import numpy as np
+# import numpy as np
 # pyqt 5.11.3
 
 import RPi.GPIO as gpio
+
 gpio.setmode(gpio.BCM)
 from hx711 import HX711
 from motor_driver import motor_driver
@@ -19,8 +22,9 @@ hx.set_reading_format("MSB", "MSB")
 hx.reset()
 hx.tare()
 
-#L = np.zeros(1)
-#import force_read as f_r
+
+# L = np.zeros(1)
+# import force_read as f_r
 
 class App(QMainWindow):
 
@@ -33,7 +37,6 @@ class App(QMainWindow):
         self.height = 480
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-
 
         self.table_widget = MyTableWidget(self)
         self.setCentralWidget(self.table_widget)
@@ -58,11 +61,13 @@ class MyTableWidget(QWidget):
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
         self.tab2 = QWidget()
+        self.tab3 = QWidget()
         self.tabs.resize(300, 200)
 
         # Add tabs
         self.tabs.addTab(self.tab1, "Main Menu")
         self.tabs.addTab(self.tab2, "Test")
+        self.tabs.addTab(self.tab3, "Results")
 
         # Create first tab
         self.tab1.layout = QVBoxLayout(self)
@@ -75,6 +80,10 @@ class MyTableWidget(QWidget):
         self.pushButtonStart = QPushButton("Start the test")
         self.pushButtonStop = QPushButton("Stop the test")
         self.pushButtonWeight = QPushButton("Weight")
+
+        # Create third tab
+        self.tab3.layout = QVBoxLayout(self)
+        self.cof = QWidget.Qlabel('test results')
 
         # Set Plotter
         pg.setConfigOption('background', 'w')
@@ -92,30 +101,31 @@ class MyTableWidget(QWidget):
         pen = pg.mkPen(color=(255, 0, 0))
         self.data_line = self.graphicsView.plot(self.test_time, self.test_data, pen=pen)
         # button events
-        self.pushButtonStart.clicked.connect(self.start_test) # plot when clicked
-        self.pushButtonStop.clicked.connect(self.stop_test) # tare when clicked
-        self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
+        self.pushButtonStart.clicked.connect(self.start_test)  # plot when clicked
+        self.pushButtonStop.clicked.connect(self.stop_test)  # tare when clicked
+        self.pushButtonWeight.clicked.connect(self.btn_weight)  # weight when clicked
 
         self.md = motor_driver()
         # timer set and update plot
         # integrate motor driving with QTtimer
         # motor driver can already calculate wait time and tick count
+
     def start_test(self):
+
         hx.tare()
         self.timer = QtCore.QTimer()
         self.timer.setInterval(50)
-        #md = motor_driver.motor_driver()
-        #md.enable_motor()
-        #md.run_standard_test()
+        # md = motor_driver.motor_driver()
+        # md.enable_motor()
+        # md.run_standard_test()
 
-        #md.motor_run(0.01, 400, 1)
+        # md.motor_run(0.01, 400, 1)
         ttime, ticks, direction = self.md.calculate_ticks()
 
-        #decorator = self.cof_test(ttime, ticks, direction)
         self.timer.timeout.connect(lambda: self.cof_test(ttime, ticks, direction))
         self.timer.start()
 
-    def cof_test(self, ttime = 0.01, ticks = 400, direction = 1):
+    def cof_test(self, ttime=0.01, ticks=400, direction=1):
         # counts down ticks
         if self.tick == 0:
             self.tick = ticks
@@ -134,10 +144,6 @@ class MyTableWidget(QWidget):
         if self.tick == 0:
             self.stop_test()
 
-        print(self.tick)
-
-
-
     def filter_force(self):
         # hx711 library already does that :(
         # we need a better method for it and that will happen after an inspection of hx711 library
@@ -150,11 +156,9 @@ class MyTableWidget(QWidget):
             self.update_plot(self.filtered_value)
             self.filter_counter = 0
 
-
     def stop_test(self):
         self.timer.stop()
-        #motor_driver.motor_driver.disable_motor()
-
+        # motor_driver.motor_driver.disable_motor()
 
     def btn_tare(self):
         hx.tare()
@@ -165,12 +169,11 @@ class MyTableWidget(QWidget):
         print(val)
 
     def update_plot(self, val):
-        #val = hx.get_weight(5)
-        #print(val)
+        # val = hx.get_weight(5)
+        # print(val)
         self.test_data.append(val)
         self.test_time.append(self.test_time[-1] + 0.05)
         self.data_line.setData(self.test_time, self.test_data)
-
 
     @pyqtSlot()
     def on_click(self):
