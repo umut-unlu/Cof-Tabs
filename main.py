@@ -11,7 +11,7 @@ import pyqtgraph as pg
 import RPi.GPIO as gpio
 gpio.setmode(gpio.BCM)
 from hx711 import HX711
-from motor_driver import motor_driver as md
+from motor_driver import motor_driver
 
 # set up the load cell
 hx = HX711(5, 6)
@@ -96,6 +96,7 @@ class MyTableWidget(QWidget):
         self.pushButtonStop.clicked.connect(self.stop_test) # tare when clicked
         self.pushButtonWeight.clicked.connect(self.btn_weight) # weight when clicked
 
+        md = motor_driver()
         # timer set and update plot
         # integrate motor driving with QTtimer
         # motor driver can already calculate wait time and tick count
