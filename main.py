@@ -117,7 +117,8 @@ class MyTableWidget(QWidget):
     def cof_test(self, ttime = 0.01, ticks = 400, direction = 1):
         # counts down ticks
         if self.tick == 0:
-            self.tick = ticks
+            self.tick = self.start_test.ttime
+            self.ticks = self.start_test.ticks
 
         self.md.send_tick(ttime, direction)
 
@@ -127,7 +128,7 @@ class MyTableWidget(QWidget):
             self.tick = 0
         self.filter_force()
         if self.tick == 0:
-            self.timer.stop()
+            self.stop_test()
 
 
 
