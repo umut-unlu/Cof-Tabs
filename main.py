@@ -81,9 +81,7 @@ class MyTableWidget(QWidget):
         self.pushButtonStop = QPushButton("Stop the test")
         self.pushButtonWeight = QPushButton("Weight")
 
-        # Create third tab
-        self.tab3.layout = QVBoxLayout(self)
-        self.cof = QtWidgets.QlineEdit('test results')
+
 
         # Set Plotter
         pg.setConfigOption('background', 'w')
