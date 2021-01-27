@@ -137,7 +137,7 @@ class MyTableWidget(QWidget):
         if self.tick < 1:
             self.tick = 0
 
-        self.filter_force()
+        self.update_plot()
 
         if self.tick == 0:
             self.stop_test()
@@ -166,8 +166,8 @@ class MyTableWidget(QWidget):
 
         print(val)
 
-    def update_plot(self, val):
-        # val = hx.get_weight(5)
+    def update_plot(self):
+        val = hx.get_weight(5)
         # print(val)
         self.test_data.append(val)
         self.test_time.append(self.test_time[-1] + 0.05)
