@@ -120,7 +120,7 @@ class MyTableWidget(QWidget):
         # md.motor_run(0.01, 400, 1)
         ttime, ticks, direction = self.md.calculate_ticks()
         #motor_driver.motor_run(ttime, ticks, direction)
-        self.timer.timeout.connect(lambda: self.cof_test(ttime, ticks, direction))
+        self.timer.timeout.connect(lambda: self.cof_test())
         self.timer.start()
 
     def cof_test(self, ttime=0.01, ticks=400, direction=1):
